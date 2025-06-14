@@ -5,6 +5,12 @@ import { getFavorites } from './favorites.js';
 const movieList = document.getElementById('movieList');
 const genreFilter = document.getElementById('genreFilter');
 const searchInput = document.getElementById('searchInput');
+const genreTitle = document.getElementById('genreTitle');
+
+movieCard.addEventListener('click', () => {
+  window.location.href = `movie.html?id=${movie.id}`;
+});
+
 
 async function init() {
   const movies = await getTrendingMovies();
@@ -25,18 +31,22 @@ genreFilter.addEventListener('click', async (e) => {
   const button = e.target.closest('button');
   if (button?.dataset.genreId) {
     const genreId = button.dataset.genreId;
+    const genreName = button.textContent;
     const movies = await getMoviesByGenre(genreId);
+    genreTitle.textContent = `Showing: ${genreName}`;
     renderMovies(movies, movieList);
   }
 });
 
 document.getElementById('homeBtn').addEventListener('click', async () => {
   const movies = await getTrendingMovies();
+  genreTitle.textContent = '';
   renderMovies(movies, movieList);
 });
 
 document.getElementById('favoritesBtn').addEventListener('click', () => {
   const favorites = getFavorites();
+  genreTitle.textContent = 'Your Favorites';
   renderMovies(favorites, movieList);
 });
 
