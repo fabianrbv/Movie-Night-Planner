@@ -7,11 +7,6 @@ const genreFilter = document.getElementById('genreFilter');
 const searchInput = document.getElementById('searchInput');
 const genreTitle = document.getElementById('genreTitle');
 
-movieCard.addEventListener('click', () => {
-  window.location.href = `movie.html?id=${movie.id}`;
-});
-
-
 async function init() {
   const movies = await getTrendingMovies();
   const genres = await getGenres();
