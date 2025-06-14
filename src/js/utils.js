@@ -21,6 +21,7 @@ export function renderMovies(movies, container) {
       ${favBtn}
     `;
 
+    // favoritos
     card.querySelector('.fav-btn')?.addEventListener('click', (e) => {
       e.stopPropagation();
       if (isFavorite(movie.id)) {
@@ -31,8 +32,9 @@ export function renderMovies(movies, container) {
       renderMovies(movies, container);
     });
 
+    // dynamic card
     card.addEventListener('click', () => {
-      showMovieDetails(movie, document.getElementById('movieDetails'));
+      window.location.href = `movie.html?id=${movie.id}`;
     });
 
     container.appendChild(card);
