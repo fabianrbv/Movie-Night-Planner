@@ -99,3 +99,29 @@ nav button:hover {
   background-color: #1e1e1e;
   border-top: 2px solid #8e44ad;
 }
+
+/* Go back button */
+
+#backBtn {
+  margin: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #222;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#backBtn:hover {
+  background-color: #444;
+}
+
+@media (max-width: 600px) {
+  .movie-card {
+    width: 45%; /* o 48% para menos espacio entre tarjetas */
+  }
+    .movie-list {
+    gap: 0.5rem;
+  }
+}
+
