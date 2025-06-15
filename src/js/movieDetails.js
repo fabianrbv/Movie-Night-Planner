@@ -36,7 +36,6 @@ async function displayMovieDetails() {
       <button id="favToggleBtn">${favBtnLabel}</button>
       <div id="favMessage" style="margin-top: 10px; font-weight: bold;"></div>
       <br/>
-      <button id="backBtn">⬅ Back</button>
     </div>
   `;
 

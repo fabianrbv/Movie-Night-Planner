@@ -161,3 +161,10 @@ nav button:hover {
 #favToggleBtn:hover {
   background-color: #a86bd0;
 }
+
+@media (max-width: 400px) {
+  .movie-card {
+    width: 45%; /* Cerca de la mitad del contenedor */
+  }
+}
+
