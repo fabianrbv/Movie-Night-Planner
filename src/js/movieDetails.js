@@ -1,5 +1,5 @@
 import { getTrailer } from './movieService.js';
-import { getFavorites, addFavorite, removeFavorite, isFavorite } from './favorites.js';
+import { addFavorite, removeFavorite, isFavorite } from './favorites.js';
 
 const API_KEY = '341e682c586005efd50a82dbd9b94a06';
 const BASE_URL = 'https://api.themoviedb.org/3';
