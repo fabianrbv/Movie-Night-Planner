@@ -4,8 +4,27 @@ import { addFavorite, removeFavorite, isFavorite } from './favorites.js';
 const API_KEY = '341e682c586005efd50a82dbd9b94a06';
 const BASE_URL = 'https://api.themoviedb.org/3';
 
+function getLanguage() {
+  return localStorage.getItem('language') || 'en-US';
+}
+
+// <select> de idioma
+const langSelect = document.getElementById('langSelect');
+
+function updateLangSelect() {
+  const lang = localStorage.getItem('language') || 'en-US';
+  if (langSelect) langSelect.value = lang;
+}
+
+if (langSelect) {
+  langSelect.addEventListener('change', (e) => {
+    localStorage.setItem('language', e.target.value);
+    location.reload();
+  });
+}
+
 async function getMovieDetails(id) {
-  const response = await fetch(`${BASE_URL}/movie/${id}?api_key=${API_KEY}`);
+  const response = await fetch(`${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=${getLanguage()}`);
   const data = await response.json();
   return data;
 }
@@ -20,7 +39,7 @@ async function displayMovieDetails() {
   if (!id) return;
 
   const movie = await getMovieDetails(id);
-  const trailerUrl = await getTrailer(movie.title); 
+  const trailerUrl = await getTrailer(movie.title);
   const container = document.getElementById('movieDetailsContainer');
 
   const fav = isFavorite(movie.id);
@@ -36,15 +55,14 @@ async function displayMovieDetails() {
       <button id="favToggleBtn">${favBtnLabel}</button>
       <div id="favMessage" style="margin-top: 10px; font-weight: bold;"></div>
       <br/>
+      <button id="backBtn">⬅ Back</button>
     </div>
   `;
 
-  // Go back button
   document.getElementById('backBtn').addEventListener('click', () => {
     history.back();
   });
 
-  // Toggle favorite with message
   const favBtn = document.getElementById('favToggleBtn');
   const msg = document.getElementById('favMessage');
 
@@ -57,9 +75,10 @@ async function displayMovieDetails() {
       addFavorite(movie);
       message = '✅ Added to favorites';
     }
-    favBtn.textContent = isFavorite(movie.id) ? '❤️ Remove from Favorites' : '🤍 Add to Favorites';
+    favBtn.textContent = isFavorite(movie.id)
+      ? '❤️ Remove from Favorites'
+      : '🤍 Add to Favorites';
 
-    // Show temporary message
     msg.textContent = message;
     msg.style.opacity = 1;
     setTimeout(() => {
@@ -68,4 +87,5 @@ async function displayMovieDetails() {
   });
 }
 
+updateLangSelect();
 displayMovieDetails();

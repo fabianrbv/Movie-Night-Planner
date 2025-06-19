@@ -1,4 +1,9 @@
-import { getTrendingMovies, getGenres, searchMovies, getMoviesByGenre } from './movieService.js';
+import {
+  getTrendingMovies,
+  getGenres,
+  searchMovies,
+  getMoviesByGenre
+} from './movieService.js';
 import { renderMovies, renderGenres } from './utils.js';
 import { getFavorites } from './favorites.js';
 
@@ -6,6 +11,23 @@ const movieList = document.getElementById('movieList');
 const genreFilter = document.getElementById('genreFilter');
 const searchInput = document.getElementById('searchInput');
 const genreTitle = document.getElementById('genreTitle');
+const langSelect = document.getElementById('langSelect');
+
+// Inicializar idioma si no existe
+if (!localStorage.getItem('language')) {
+  localStorage.setItem('language', 'en-US');
+}
+
+// Mostrar idioma seleccionado al cargar
+function updateLangSelect() {
+  const lang = localStorage.getItem('language') || 'en-US';
+  langSelect.value = lang;
+}
+
+langSelect.addEventListener('change', (e) => {
+  localStorage.setItem('language', e.target.value);
+  location.reload();
+});
 
 async function init() {
   const movies = await getTrendingMovies();
@@ -45,4 +67,5 @@ document.getElementById('favoritesBtn').addEventListener('click', () => {
   renderMovies(favorites, movieList);
 });
 
+updateLangSelect();
 init();
